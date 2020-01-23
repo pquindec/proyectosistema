@@ -13,59 +13,53 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import metodo.Producto;
-
-
+import metodo.Proveedor;
 
 /**
  *
  * @author usuario
  */
-public class IngProducto {
+public class IngProveedor {
+    
     Conexion conexion = new Conexion();
     Connection cn = conexion.gettConexion();
     PreparedStatement cst;
-    public boolean Guardar(Object objNew) {
-        Producto objN = (Producto) objNew;
+        public boolean Guardar(Object objNew) {
+        Proveedor objN = (Proveedor) objNew;
         boolean estado = false;
         try {
 
-            cst = cn.prepareCall("{call TodosP(null,?,?,?,?,?,'Insertar')}");
-
-            cst.setString(1, objN.getNombre());
-            cst.setDouble(2, objN.getNprecio());
-            cst.setDouble(3, objN.getDprecio());
-            cst.setInt(4, objN.getCantidad());
-            cst.setString(5, objN.getTipo());
+            cst = cn.prepareCall("{call TodosPro(null,?,?,?,?,?,'Insertar')}");
+            cst.setString(1, objN.getCedula());
+            cst.setString(2, objN.getNombre());
+            cst.setString(3, objN.getApellido());
+            cst.setString(4, objN.getDireccion());
+            cst.setInt(5, objN.getNumero());
             cst.execute();
-            
-
             estado = true;
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
         return estado;
     }
-    public ArrayList<Producto> Listar_Producto(){
-        ArrayList<Producto> list = new ArrayList<Producto>();
+            public ArrayList<Proveedor> Listar_Producto(){
+        ArrayList<Proveedor> list = new ArrayList<Proveedor>();
         Conexion conexion = new Conexion();
         Connection cn = conexion.getConexion();
-        String sql = "SELECT * FROM vistapro;";
+        String sql = "SELECT * FROM vistador;";
         try{
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
-                Producto p = new Producto();
-                p.setId(rs.getInt("id"));
+                Proveedor p = new Proveedor();
+                p.setIdProveedor(rs.getInt("idProveedor"));
+                p.setCedula(rs.getString("cedula"));
                 p.setNombre(rs.getString("nombre"));
-                p.setNprecio(rs.getDouble("nprecio"));
-                p.setDprecio(rs.getDouble("dprecio"));
-                p.setCantidad(rs.getInt("cantidad"));
-                p.setTipo(rs.getString("tipo"));
+                p.setApellido(rs.getString("apellido"));
+                p.setDireccion(rs.getString("direccion"));
+                p.setNumero(rs.getInt("telefono"));
                 list.add(p);
             }
-            
             }catch(SQLException ex){
             System.out.println(ex.getMessage());
         }catch(Exception ex){
@@ -77,13 +71,13 @@ public class IngProducto {
         }
         return list;
     }
-    public boolean eliminar(Object obj ){
-           Producto objN = (Producto) obj;
+        public boolean eliminar(Object obj ){
+           Proveedor objN = (Proveedor) obj;
            boolean estado = false;
         try {
                      
-          CallableStatement pst=cn.prepareCall("{Call TodosP(?,null,null,null,null,null,'Eliminar')}");
-          pst.setInt(1, objN.getId());
+          CallableStatement pst=cn.prepareCall("{Call TodosPro(?,null,null,null,null,null,'Eliminar')}");
+          pst.setInt(1, objN.getIdProveedor());
               pst.executeUpdate();
               estado = true;
         } catch (Exception e) {
@@ -91,24 +85,19 @@ public class IngProducto {
         }
          return estado;
     }
-    public boolean Modificar(Object objNew) {
-        Producto objN = (Producto) objNew;
+        public boolean Modificar(Object objNew) {
+        Proveedor objN = (Proveedor) objNew;
         boolean estado = false;
-
         try {
-
-            cst = cn.prepareCall("{call TodosP(?,?,?,?,?,?,'Actualizar')}");
-
-            cst.setInt(1, objN.getId());
-            cst.setString(2, objN.getNombre());
-            cst.setDouble(3, objN.getNprecio());
-            cst.setDouble(4, objN.getDprecio());
-            cst.setInt(5, objN.getCantidad());
-            cst.setString(6, objN.getTipo());
+            cst = cn.prepareCall("{call TodosPro(?,?,?,?,?,?,'Actualizar')}");
+            cst.setInt(1, objN.getIdProveedor());
+            cst.setString(2, objN.getCedula());
+            cst.setString(3, objN.getNombre());
+            cst.setString(4, objN.getApellido());
+            cst.setString(5, objN.getDireccion());
+            cst.setInt(6, objN.getNumero());
             cst.execute();
-
             estado = true;
-
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }

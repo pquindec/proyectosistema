@@ -127,6 +127,8 @@ public class Jlogim extends javax.swing.JFrame {
             if(modsql.login(mod)){
             JMenu m = new JMenu(mod);
             m.setVisible(true);
+            txtUser.setText("");
+            txtPass.setText("");
             }else {
                 JOptionPane.showMessageDialog(null, "Datos Incorrectos");
                 txtUser.setText("");

@@ -6,7 +6,7 @@
 package Frames;
 
 import adm.Conexion;
-import adm.IngProducto;
+import adm.IngProveedor;
 import adm.Limpiar_Caja;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,33 +16,26 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import metodo.Producto;
+import metodo.Proveedor;
 import metodo.Tabla;
 
 /**
  *
  * @author usuario
  */
-public class FrameListaP extends javax.swing.JFrame {
+public class FrameListaPro extends javax.swing.JFrame {
     Tabla t = new Tabla();
     Limpiar_Caja l = new Limpiar_Caja();
-    IngProducto pro;
+    IngProveedor pro;
     int clic_tabla = 0;
-    
     /**
-     * Creates new form FrameListaP
+     * Creates new form FrameListaPro
      */
-    public FrameListaP() {
+    public FrameListaPro() {
         initComponents();
-        t.ver_producto(tabla);
-        
+        t.ver_proveedor(tabla);
     }
 
- public void modificar(){
-     pro = new IngProducto();
-     Producto p = new Producto();
-    
-     
- }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,9 +51,9 @@ public class FrameListaP extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 204));
-        jLabel1.setText("Listado de Medicina");
+        jLabel1.setText("Listado de Proveedores");
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -84,20 +77,23 @@ public class FrameListaP extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(342, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(245, 245, 245))
+                .addGap(223, 223, 223))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 829, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(4, 4, 4)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -105,35 +101,32 @@ public class FrameListaP extends javax.swing.JFrame {
 
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
         // TODO add your handling code here:
-            clic_tabla = this.tabla.rowAtPoint(evt.getPoint());
+        clic_tabla = this.tabla.rowAtPoint(evt.getPoint());
             String id = tabla.getValueAt(tabla.getSelectedRow(), 0).toString();
-            String nombre = tabla.getValueAt(tabla.getSelectedRow(), 1).toString();
-            String nprecio = tabla.getValueAt(tabla.getSelectedRow(), 2).toString();
-            String dprecio = tabla.getValueAt(tabla.getSelectedRow(), 3).toString();
-            String cantidad = tabla.getValueAt(tabla.getSelectedRow(), 4).toString();
-            String tipo = tabla.getValueAt(tabla.getSelectedRow(), 5).toString();
-            
-            
+            String cedula = tabla.getValueAt(tabla.getSelectedRow(), 1).toString();
+            String nombre = tabla.getValueAt(tabla.getSelectedRow(), 2).toString();
+            String apellido = tabla.getValueAt(tabla.getSelectedRow(), 3).toString();
+            String direccion = tabla.getValueAt(tabla.getSelectedRow(), 4).toString();
+            String telefono = tabla.getValueAt(tabla.getSelectedRow(), 5).toString();
             int column = tabla.getColumnModel().getColumnIndexAtX(evt.getX());
             int row = evt.getY()/tabla.getRowHeight();
-        
             if(row < tabla.getRowCount() && row >= 0 && column < tabla.getColumnCount() && column >= 0){
             Object value = tabla.getValueAt(row, column);
                 Conexion c = new Conexion();
                 Connection con = c.gettConexion();
                 Statement stat;
-            if(value instanceof JButton){
+                if(value instanceof JButton){
                 ((JButton)value).doClick();
                 JButton boton = (JButton) value;
-                Producto p = new Producto();
-                    p.setId(Integer.parseInt(id));
+                Proveedor p = new Proveedor();
+                    p.setIdProveedor(Integer.parseInt(id));
+                    p.setCedula(cedula);
                     p.setNombre(nombre);
-                    p.setNprecio(Double.parseDouble(nprecio));
-                    p.setDprecio(Double.parseDouble(dprecio));
-                    p.setCantidad(Integer.parseInt(cantidad));
-                    p.setTipo(tipo);
+                    p.setApellido(apellido);
+                    p.setDireccion(direccion);
+                    p.setNumero(Integer.parseInt(telefono));
                 if(boton.getName().equals("m")){
-                    String sql = "update producto set nombre='"+nombre+"',nprecio='"+nprecio+"',dprecio='"+dprecio+"',cantidad='"+cantidad+"',tipo='"+tipo+"' where id='"+id+"';";
+                    String sql = "update proveedor set cedula='"+cedula+"', nombre='"+nombre+"',apellido='"+apellido+"',direccion='"+direccion+"',telefono='"+telefono+"' where idProveedor='"+id+"';";
                     try {
                         stat = con.createStatement();
                         stat.executeUpdate(sql);
@@ -141,29 +134,17 @@ public class FrameListaP extends javax.swing.JFrame {
                     } catch (SQLException ex) {
                         Logger.getLogger(FrameListaP.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    
-                    
-     
-                    
-                    //EVENTOS MODIFICAR
-                                    }
+            }else JOptionPane.showMessageDialog(null, "No se puede Actualizar");
+                
                 if(boton.getName().equals("e")){
-                    
-                    if (Integer.parseInt(cantidad)==0){
-                        String query = " delete from producto where id='"+id+"';";
+                        String query = "delete from proveedor where idProveedor='"+id+"';";
                         try {
                         stat = con.createStatement();
                         stat.executeUpdate(query);
-                        JOptionPane.showMessageDialog(null, "Registro actualizado");
+                        JOptionPane.showMessageDialog(null, "Registro eliminado");
                     } catch (SQLException ex) {
                         Logger.getLogger(FrameListaP.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    }else JOptionPane.showMessageDialog(null, "Fallo al eliminar");
-                        
-                    //JOptionPane.showConfirmDialog(null, "Desea eliminar este registro", "Confirmar", JOptionPane.OK_CANCEL_OPTION);
-                    System.out.println("Click en el boton eliminar");
-                    //EVENTOS ELIMINAR
-                    
                 }
             }
         }
@@ -186,20 +167,20 @@ public class FrameListaP extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrameListaP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameListaPro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrameListaP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameListaPro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrameListaP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameListaPro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrameListaP.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrameListaPro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrameListaP().setVisible(true);
+                new FrameListaPro().setVisible(true);
             }
         });
     }
