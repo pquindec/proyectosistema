@@ -15,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import metodo.Producto;
 import metodo.Proveedor;
 import metodo.Tabla;
 

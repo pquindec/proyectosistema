@@ -19,6 +19,7 @@ public class Tabla {
     IngUsuarios use = null;
     IngProducto pro = null;
     IngProveedor dor=null;
+    IngCliente cli= null;
     
     public void ver_usuarios(JTable tabla){
         tabla.setDefaultRenderer(Object.class, new Render());
@@ -128,6 +129,45 @@ public class Tabla {
                 fila[5] = p.numero;
                 fila[6] = btn_modificar;
                 fila[7] = btn_eliminar;
+                dt.addRow(fila);
+            }
+            tabla.setModel(dt);
+            tabla.setRowHeight(20);
+            } 
+    }
+        public void ver_cliente(JTable tabla){
+        tabla.setDefaultRenderer(Object.class, new Render());
+          DefaultTableModel dt = new DefaultTableModel(){
+              
+            public boolean isCellEditable(int row, int column){
+                return true;
+            }
+        }; 
+            dt.addColumn("Cedula");
+            dt.addColumn("Nombre");
+            dt.addColumn("Apellido");
+            dt.addColumn("Correo");
+            dt.addColumn("Direccion"); 
+            dt.addColumn("Modificar");
+            dt.addColumn("Eliminar");
+            JButton btn_modificar = new JButton("Modificar");
+            btn_modificar.setName("m");
+            JButton btn_eliminar = new JButton("Eliminar");
+            btn_eliminar.setName("e");
+            cli = new IngCliente();
+            cliente p= new cliente();
+            ArrayList<cliente> list = cli.Listar_Cliente();
+            if(list.size() > 0){
+            for(int i=0; i<list.size(); i++){
+                Object fila[] = new Object[8];
+                p = list.get(i);
+                fila[0] = p.cedula;
+                fila[1] = p.nombre;
+                fila[2] = p.apellido;
+                fila[3] = p.correo;
+                fila[4] = p.direccion;
+                fila[5] = btn_modificar;
+                fila[6] = btn_eliminar;
                 dt.addRow(fila);
             }
             tabla.setModel(dt);

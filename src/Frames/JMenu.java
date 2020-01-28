@@ -47,6 +47,7 @@ public class JMenu extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jSupervisor = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
@@ -71,7 +72,15 @@ public class JMenu extends javax.swing.JFrame {
         });
         jSupervisor.add(jMenuItem2);
 
-        jMenuItem1.setText("Proveedores");
+        jMenuItem9.setText("Lista de Clientes");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jSupervisor.add(jMenuItem9);
+
+        jMenuItem1.setText("Registro de Proveedores");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -87,7 +96,7 @@ public class JMenu extends javax.swing.JFrame {
         });
         jSupervisor.add(jMenuItem8);
 
-        jMenuItem4.setText("Productos");
+        jMenuItem4.setText("Registro de Productos");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem4ActionPerformed(evt);
@@ -95,7 +104,7 @@ public class JMenu extends javax.swing.JFrame {
         });
         jSupervisor.add(jMenuItem4);
 
-        jMenuItem7.setText("Listado de productos");
+        jMenuItem7.setText("Lista de productos");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem7ActionPerformed(evt);
@@ -179,6 +188,12 @@ public class JMenu extends javax.swing.JFrame {
         f.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        // TODO add your handling code here:
+        FrameListaCli f = new FrameListaCli();
+        f.setVisible(true);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -226,6 +241,7 @@ public class JMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     public static javax.swing.JMenu jSupervisor;
     public static javax.swing.JMenu jVendedor;
     // End of variables declaration//GEN-END:variables

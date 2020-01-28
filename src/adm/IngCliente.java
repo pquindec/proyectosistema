@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import metodo.cliente;
 
 
@@ -48,7 +47,7 @@ Conexion conexion = new Conexion();
         ArrayList<cliente> list = new ArrayList<cliente>();
         Conexion conexion = new Conexion();
         Connection cn = conexion.getConexion();
-        String sql = "SELECT * FROM vistaUsuari;";
+        String sql = "SELECT * FROM vistacli;";
         
          try{
             Statement st = cn.createStatement();
