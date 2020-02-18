@@ -5,9 +5,18 @@
  */
 package Frames;
 
+import adm.Conexion;
 import adm.IngCliente;
 import adm.Limpiar_Caja;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import metodo.Tabla;
+import metodo.cliente;
 
 /**
  *
@@ -39,7 +48,8 @@ public class FrameListaCli extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocation(new java.awt.Point(300, 300));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 204));
@@ -93,6 +103,52 @@ public class FrameListaCli extends javax.swing.JFrame {
     private void tablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaMouseClicked
         // TODO add your handling code here:
         clic_tabla = this.tabla.rowAtPoint(evt.getPoint());
+            String cedula = tabla.getValueAt(tabla.getSelectedRow(), 0).toString();
+            String nombre = tabla.getValueAt(tabla.getSelectedRow(), 1).toString();
+            String apellido = tabla.getValueAt(tabla.getSelectedRow(), 2).toString();
+            String correo = tabla.getValueAt(tabla.getSelectedRow(), 3).toString();
+            String direccion = tabla.getValueAt(tabla.getSelectedRow(), 4).toString();
+             int column = tabla.getColumnModel().getColumnIndexAtX(evt.getX());
+            int row = evt.getY()/tabla.getRowHeight();
+            if(row < tabla.getRowCount() && row >= 0 && column < tabla.getColumnCount() && column >= 0){
+            Object value = tabla.getValueAt(row, column);
+                Conexion c = new Conexion();
+                Connection con = c.gettConexion();
+                Statement stat;
+                if(value instanceof JButton){
+                ((JButton)value).doClick();
+                JButton boton = (JButton) value;
+                cliente cl = new cliente();
+                cl.setCedula(cedula);
+                cl.setNombre(nombre);
+                cl.setApellido(apellido);
+                cl.setCorreo(correo);
+                cl.setDireccion(direccion);
+                if(boton.getName().equals("m")){
+                    String sql = "update cliente set nombre='"+nombre+"',apellido='"+apellido+"',correo='"+correo+"',direccion='"+direccion+"'where cedula='"+cedula+"';";
+                    try {
+                        stat = con.createStatement();
+                        stat.executeUpdate(sql);
+                        JOptionPane.showMessageDialog(null, "Registro actualizado");
+                        
+                        
+                    } catch (SQLException ex) {
+                        Logger.getLogger(FrameListaP.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }                
+                if(boton.getName().equals("e")){
+                        String query = "delete from cliente where cedula='"+cedula+"';";
+                        try {
+                        stat = con.createStatement();
+                        stat.executeUpdate(query);
+                        JOptionPane.showMessageDialog(null, "Registro eliminado");
+                        t.ver_cliente(tabla);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(FrameListaP.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }    
     }//GEN-LAST:event_tablaMouseClicked
 
     /**

@@ -49,6 +49,7 @@ public class FrameListaPro extends javax.swing.JFrame {
         tabla = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocation(new java.awt.Point(300, 300));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 204));
@@ -141,6 +142,7 @@ public class FrameListaPro extends javax.swing.JFrame {
                         stat = con.createStatement();
                         stat.executeUpdate(query);
                         JOptionPane.showMessageDialog(null, "Registro eliminado");
+                        t.ver_proveedor(tabla);
                     } catch (SQLException ex) {
                         Logger.getLogger(FrameListaP.class.getName()).log(Level.SEVERE, null, ex);
                     }

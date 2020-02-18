@@ -57,6 +57,7 @@ public class FrameListaP extends javax.swing.JFrame {
         tabla = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocation(new java.awt.Point(300, 300));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 204));
@@ -97,7 +98,7 @@ public class FrameListaP extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
@@ -155,6 +156,7 @@ public class FrameListaP extends javax.swing.JFrame {
                         stat = con.createStatement();
                         stat.executeUpdate(query);
                         JOptionPane.showMessageDialog(null, "Registro actualizado");
+                        t.ver_producto(tabla);
                     } catch (SQLException ex) {
                         Logger.getLogger(FrameListaP.class.getName()).log(Level.SEVERE, null, ex);
                     }

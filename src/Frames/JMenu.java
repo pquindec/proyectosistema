@@ -61,6 +61,7 @@ public class JMenu extends javax.swing.JFrame {
         jMenu2.setText("jMenu2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocation(new java.awt.Point(300, 300));
 
         jSupervisor.setText("Supervisor");
 
@@ -117,6 +118,11 @@ public class JMenu extends javax.swing.JFrame {
         jVendedor.setText("Vendedor");
 
         jMenuItem5.setText("Facturacion");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jVendedor.add(jMenuItem5);
 
         jMenuItem6.setText("Cierre de caja");
@@ -193,6 +199,12 @@ public class JMenu extends javax.swing.JFrame {
         FrameListaCli f = new FrameListaCli();
         f.setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        FormFactura f = new FormFactura();
+        f.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments
