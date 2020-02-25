@@ -20,6 +20,7 @@ public class Tabla {
     IngProducto pro = null;
     IngProveedor dor=null;
     IngCliente cli= null;
+    int j;
     
     public void ver_usuarios(JTable tabla){
         tabla.setDefaultRenderer(Object.class, new Render());
@@ -159,7 +160,7 @@ public class Tabla {
             ArrayList<cliente> list = cli.Listar_Cliente();
             if(list.size() > 0){
             for(int i=0; i<list.size(); i++){
-                Object fila[] = new Object[8];
+                Object fila[] = new Object[7];
                 p = list.get(i);
                 fila[0] = p.cedula;
                 fila[1] = p.nombre;
@@ -174,4 +175,61 @@ public class Tabla {
             tabla.setRowHeight(20);
             } 
     }
+        public void factura(JTable tabla,String cantidad,String nombre){
+               tabla.setDefaultRenderer(Object.class, new Render());
+          DefaultTableModel dt = new DefaultTableModel(){
+              
+            public boolean isCellEditable(int row, int column){
+                
+                return true;
+            }
+            
+        }; 
+            dt.addColumn("Producto");
+            dt.addColumn("Cantidad");
+            dt.addColumn("Precio Normal");
+            dt.addColumn("Precio descuento");
+            dt.addColumn("Eliminar");
+            JButton btn_eliminar = new JButton("Eliminar");
+            btn_eliminar.setName("e");
+            pro= new IngProducto();
+            Producto p = new Producto();
+             ArrayList<Producto> list = pro.Listar_Producto();
+         
+            for(int i=0; i<list.size(); i++){
+                p = list.get(i);
+                if(list.get(i).getNombre().equals(nombre)){
+                    
+                    
+                    dt.addRow(new Object[]{p.nombre,cantidad,p.nprecio,p.dprecio,btn_eliminar});
+                    
+                    break;  
+                }
+            
+            tabla.setModel(dt);
+            tabla.setRowHeight(20);
+            
+        }
+        
+        }
 }
+//
+//tblTaskList = new JTable();
+//    tblTaskList.setShowVerticalLines(false);
+//    tblTaskList.setCellSelectionEnabled(true);
+//    tblTaskList.setColumnSelectionAllowed(true);
+//    tblTaskList.setBorder(new LineBorder(null));
+//    for (int count = 1; count <= 10; count++) {
+//        tblTaskList.setModel(new DefaultTableModel(new Object[][] { {
+//                count, "title1", "start", "stop", "pause", "status" }, },
+//                new String[] { "status", "Task Title", "Start", "Stop",
+//                        "Pause", "Status" }));
+//    }
+//    tblTaskList.getColumnModel().getColumn(0).setPreferredWidth(31);
+//    tblTaskList.getColumnModel().getColumn(1).setPreferredWidth(346);
+//    tblTaskList.getColumnModel().getColumn(2).setPreferredWidth(33);
+//    tblTaskList.getColumnModel().getColumn(3).setPreferredWidth(31);
+//    tblTaskList.getColumnModel().getColumn(4).setPreferredWidth(28);
+//
+//    tblTaskList.setBounds(93, 34, 614, 160);
+//    frmTaskList.getContentPane().add(tblTaskList);

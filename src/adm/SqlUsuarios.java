@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package adm;
 
 
@@ -25,7 +21,7 @@ public class SqlUsuarios extends Conexion{
     PreparedStatement ps = null;
         ResultSet rs = null;
         Connection con = getConexion();
-        String sql = "SELECT u.id, u.usuario, u.contrasena, u.tipo_usuario,t.nombre "
+        String sql = "SELECT u.id,u.usuario,u.contrasena,u.tipo_usuario,t.nombre,t.id "
                 + "From usuarios AS u INNER JOIN tipo_usuario AS t ON u.tipo_usuario=t.id WHERE usuario=?";
         try {
             ps= con.prepareStatement(sql);

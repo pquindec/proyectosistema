@@ -14,12 +14,12 @@ public class Conexion {
     
     
     private final String user = "user";
-    private final String password = "pquinde";
+    private final String password = "farmacia";
     private final String url = "jdbc:sqlserver://192.168.27.230:1433;database=farmacia";
     private Connection con = null;
     static Connection co = null;
     public static String User="user";
-    public static String Clave="pquinde";
+    public static String Clave="farmacia";
     public static boolean status = false;
     
     public Connection getConexion()
